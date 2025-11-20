@@ -369,8 +369,8 @@ with tab2:
     st.plotly_chart(fig_q3, use_container_width=True)
     
     st.info("""
-    **Insight Q3:** Yogyakarta memimpin revenue ($427k) murni karena volume inventaris terbesar. 
-    Secara performa (ADR ~$5.00 dan Okupansi ~0.75%), semua kota sangat identik/terstandarisasi.
+    **Insight Q3:** Yogyakarta memimpin revenue (\$427k) murni karena volume inventaris terbesar. 
+    Secara performa (ADR ~$\5.00 dan Okupansi ~0.75%), semua kota sangat identik/terstandarisasi.
     """)
 
 # ==============================================================================
