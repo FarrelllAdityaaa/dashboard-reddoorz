@@ -302,7 +302,7 @@ with tab1:
         fig_q1.update_traces(textposition='outside', textinfo='percent+label')
         st.plotly_chart(fig_q1, use_container_width=True)
         
-        st.info("Insight Q1: Mayoritas portofolio berada di Grade E (<20% Okupansi).")
+        st.info("**Insight Q1**: Mayoritas portofolio berada di Grade E (<20% Okupansi).")
 
     # --- Q4: Tren Pertumbuhan (Line Chart) ---
     with col_q4:
@@ -322,7 +322,7 @@ with tab1:
         fig_q4.update_xaxes(type='category') # Agar tahun tidak ada koma
         st.plotly_chart(fig_q4, use_container_width=True)
         
-        st.info("Insight Q4: RedDoorz memuncak di 2022, Koolkost agresif di 2023.")
+        st.info("**Insight Q4**: RedDoorz memuncak di 2022, Koolkost agresif di 2023.")
 
 # ==============================================================================
 # TAB 2: Wilayah & Revenue (Q3)
@@ -398,7 +398,7 @@ with tab3:
         fig_q2.update_layout(yaxis_range=[0, 6]) # Agar skala terlihat wajar
         st.plotly_chart(fig_q2, use_container_width=True)
         
-        st.info("Insight Q2: Strategi harga sangat seragam (\$4.98 - \$5.01) antar brand.")
+        st.info("**Insight Q2**: Strategi harga sangat seragam (\$4.98 - \$5.01) antar brand.")
         
     # --- Q5: Loyalitas Pelanggan ---
     with col_q5:
