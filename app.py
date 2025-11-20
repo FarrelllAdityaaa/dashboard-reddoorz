@@ -398,7 +398,7 @@ with tab3:
         fig_q2.update_layout(yaxis_range=[0, 6]) # Agar skala terlihat wajar
         st.plotly_chart(fig_q2, use_container_width=True)
         
-        st.info("Insight Q2: Strategi harga sangat seragam ($4.98 - $5.01) antar brand.")
+        st.info("Insight Q2: Strategi harga sangat seragam (\$4.98 - \$5.01) antar brand.")
         
     # --- Q5: Loyalitas Pelanggan ---
     with col_q5:
