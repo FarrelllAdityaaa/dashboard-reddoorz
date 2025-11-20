@@ -421,7 +421,6 @@ with tab3:
         """)
 
 # --- 6. FOOTER TIM VISUALISASI ---
-
 footer_css = """
 <style>
 .footer-container {
@@ -431,8 +430,6 @@ footer_css = """
     text-align: center;
     font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     color: #333333;
-    
-    /* --- PERUBAHAN DI SINI --- */
     margin-top: 170px;  /* Memberi jarak jauh ke bawah dari konten sebelumnya */
     border-top: 3px solid #EB3638; /* Garis pemisah merah tipis di atas footer */
     padding-top: 30px; /* Jarak antara garis dan teks footer */
@@ -464,6 +461,16 @@ footer_css = """
     font-size: 12px;
     margin-top: 18px;
 }
+
+.team-badge {
+    padding: 6px 14px;
+    border-radius: 16px;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    display: inline-block;
+}
+
 @media (max-width: 600px) {
     .footer-container .team { font-size: 14px; gap: 10px; }
     .footer-container h2 { font-size: 18px; }
@@ -475,13 +482,13 @@ footer_html = """
 <div class="footer-container">
   <div class="sponsor">Dashboard ini dipersembahkan oleh:</div>
   <h2>📊 SAFARI DATA 🐱</h2>
+
   <div class="team">
-    <span>👩‍💻 Nabila Putri Asy Syifa</span>
-    <span style="color: #EB3638;">|</span>
-    <span>👨‍💻 Farrel Paksi Aditya</span>
-    <span style="color: #EB3638;">|</span>
-    <span>👩‍💻 Nur Salamah Azzahrah</span>
+    <span class="team-badge" style="background:#FF66CC;">👩🏻‍💻 Nabila Putri Asy Syifa</span>
+    <span class="team-badge" style="background:#FFB700;">🧑🏻‍💻 Farrel Paksi Aditya</span>
+    <span class="team-badge" style="background:#2A9DF4;">👩🏻‍💻 Nur Salamah Azzahrah</span>
   </div>
+
   <div class="copyright">© 2024 Proyek Akhir Visualisasi Data | RedDoorz Analysis</div>
 </div>
 """
