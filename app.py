@@ -1020,13 +1020,13 @@ with st.expander("ℹ️  KONTEKS BISNIS DAN PANDUAN ANALISIS (Klik untuk membu
             </tr>
         </thead>
         <tbody>
-            <tr title="Distribusi kualitas properti (A-E)">
+            <tr title="Komposisi Performa Okupansi Properti (Grade A-E)">
                 <td><b>Q1</b></td>
-                <td>Distribusi Kualitas Properti (Grade A-E)</td>
+                <td>Komposisi Performa Okupansi Properti (Grade A-E)</td>
                 <td>Pie Chart</td>
-                <td>Melihat porsi aset yang "Sehat" (Grade A) vs "Sakit" (Grade E) dalam portofolio.</td>
+                <td>Mendiagnosis proporsi aset yang "Sehat" (Grade A) vs "Sakit" (Grade E) dalam portofolio.</td>
             </tr>
-            <tr title="Perbandingan harga antar brand">
+            <tr title="Perbandingan Harga (ADR) per Brand">
                 <td><b>Q2</b></td>
                 <td>Perbandingan Harga (ADR) per Brand</td>
                 <td>Bar Chart</td>
@@ -1038,13 +1038,13 @@ with st.expander("ℹ️  KONTEKS BISNIS DAN PANDUAN ANALISIS (Klik untuk membu
                 <td>Bar Chart</td>
                 <td>Identifikasi kota "Mesin Uang" & apakah didorong oleh volume (okupansi) atau harga (ADR).</td>
             </tr>
-            <tr title="Tren akuisisi properti baru per tahun">
+            <tr title="Tren Pertumbuhan Properti Baru (Tahunan)">
                 <td><b>Q4</b></td>
                 <td>Tren Pertumbuhan Properti Baru (Tahunan)</td>
                 <td>Line Chart</td>
                 <td>Memantau laju ekspansi/akuisisi properti dari tahun ke tahun untuk setiap brand.</td>
             </tr>
-            <tr title="Loyalitas pelanggan Grade A vs E">
+            <tr title="Proporsi Loyalitas (Grade A vs Grade E)">
                 <td><b>Q5</b></td>
                 <td>Proporsi Loyalitas (Grade A vs Grade E)</td>
                 <td>Bar Chart & Uji Statistik</td>
@@ -1123,7 +1123,7 @@ tab1, tab2, tab3, tab4 = st.tabs(["📊 1. Aset & Kualitas", "🗺️ 2. Wilayah
 
 # TAB 1: Aset & Kualitas (Q1 & Q4)
 with tab1:
-    st.subheader("Q1: Distribusi Kualitas Properti (Grade A-E)")
+    st.subheader("Q1: Komposisi Performa Okupansi Properti (Grade A-E)")
     
     # --- PERBAIKAN DI SINI ---
     # Tambahkan filter: (prop_final['GRADE'].isin(selected_grades))
