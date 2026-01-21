@@ -6,11 +6,7 @@ import textwrap
 import re
 from streamlit import components
 
-# NOTE: Removed global scipy import/message per user request.
-# If scipy is present in the environment, the chi-square test will be attempted
-# inside the Q5 block, but if not present it will fail silently (no message).
-
-# --- 1. KONFIGURASI HALAMAN ---
+# --- KONFIGURASI HALAMAN ---
 st.set_page_config(
     page_title="RedDoorz Performance Dashboard",
     page_icon="🏨",
@@ -21,10 +17,7 @@ st.set_page_config(
 # Matikan warning
 warnings.filterwarnings('ignore')
 
-# -------------------------
-# PERSISTENT HIGHLIGHT CSS
-# (unchanged)
-# -------------------------
+# --- STYLING GLOBAL & TEMA WARNA ---
 persistent_highlight_css = """
 <style>
 /* Judul utama: beri bayangan / floating look yang selalu aktif */
@@ -70,10 +63,6 @@ div.css-1offfwp img {
 """
 
 # --- DEFINISI PALET WARNA KUSTOM (REDDOORZ THEME) ---
-# Core brand colors (RedDoorz theme) -- UPDATED to match user request:
-# - Koolkost: Oranye Koral Terang (Bright Coral Orange)
-# - RedDoorz: Merah Tua (Dark Red)
-# - RedPartner: Merah Muda (Light Pink/Coral)
 color_map_brand = {
     'RedDoorz': '#8B0000',    # Merah Tua
     'RedPartner': '#FF9A8B',  # Merah Muda
@@ -99,14 +88,7 @@ def make_reddoorz_map(categories):
         mapping[c] = palette[i % len(palette)]
     return mapping
 
-# For city chart (Q3) we will create a RedDoorz-shade mapping for cities
-# Keep city order deterministic for styling
-# IMPORTANT: user requested specific mapping for Q3 cities:
-# - Yogyakarta -> dark gray
-# - Bandung    -> light gray
-# - Jakarta    -> Bright Coral Orange (Koolkost / #FF7F50)
-# - Malang     -> orange-red
-# - Surabaya   -> purple
+# --- FIXED CITY COLOR MAP ---
 city_color_map_fixed = {
     'Yogyakarta': '#5a5a5a',     # dark gray (Yogyakarta)
     'Bandung':    '#d9d9d9',     # light gray (Bandung)
@@ -294,7 +276,7 @@ div[data-testid="stMetric"]:hover > div:nth-child(2) { transform: scale(1.03); }
 
 st.markdown(persistent_highlight_css, unsafe_allow_html=True)
 
-# --- 2. FUNGSI LOAD DATA & CACHING (unchanged) ---
+# --- FUNGSI LOAD DATA & CACHING (unchanged) ---
 @st.cache_data
 def load_data():
     try:
@@ -353,7 +335,7 @@ if missing:
     st.error(f"Kolom wajib hilang: {missing}. Periksa file sumber.")
     st.stop()
 
-# --- 3. SIDEBAR FILTER (small change: removed divider above Grade) ---
+# --- SIDEBAR FILTER (small change: removed divider above Grade) ---
 st.sidebar.image("https://i0.wp.com/join.reddoorz.com/wp-content/uploads/2022/12/rdlogo.png?fit=960%2C434&ssl=1", width=200)
 st.sidebar.divider()
 st.sidebar.markdown("## 🔍 Filter Data")
@@ -367,11 +349,8 @@ selected_cities = st.sidebar.multiselect("🏙️ Pilih Kota:", all_cities, defa
 all_users = sorted(df_main['USER_TYPE'].dropna().unique())
 selected_users = st.sidebar.multiselect("👥 Pilih User Type:", all_users, default=all_users)
 
-# divider removed here intentionally to hide the horizontal line above Grade filter
-# st.sidebar.divider()
-
-# --- D. Filter Grade (ONLY A-E, remove 'Unknown') ---
-# Tampilkan pilihan grade hanya A sampai E (tetap urut A->E)
+# --- Filter Grade (ONLY A-E, remove 'Unknown') ---
+# Tampilkan pilihan grade hanya A sampai E (tetap urut A-E)
 all_grades = ['A', 'B', 'C', 'D', 'E']
 
 selected_grades = st.sidebar.multiselect(
@@ -380,8 +359,8 @@ selected_grades = st.sidebar.multiselect(
     default=all_grades
 )
 
-# --- B. Filter Tanggal (moved BELOW grade filter as requested) ---
-# compute min/max from df_main (safe even if CHECK_IN_DATE has NaT)
+# --- Filter Tanggal (moved BELOW grade filter as requested) ---
+# Tanggal min/max dari data utama
 min_date = df_main['CHECK_IN_DATE'].min()
 max_date = df_main['CHECK_IN_DATE'].max()
 
@@ -392,8 +371,8 @@ start_date, end_date = st.sidebar.date_input(
     max_value=max_date
 )
 
-# --- C. Logika Hitung Grade dan property-level aggregation (menggunakan active_days per property) ---
-# days_count tetap bisa dipakai untuk fallback/summary tapi kita akan gunakan active_days per property
+# --- Logika Hitung Grade dan property-level aggregation (menggunakan active_days per property) ---
+# Hitung total hari dalam rentang filter
 days_count = (pd.to_datetime(end_date) - pd.to_datetime(start_date)).days + 1
 
 # Filter transaksi dalam rentang yang dipilih (unchanged)
@@ -407,26 +386,24 @@ prop_agg = temp_df.groupby('PROPERTY_CODE').agg(
     SOLD=('ROOM_NIGHTS', 'sum')
 ).reset_index()
 
-# Ambil property master termasuk COHORT_DATE (kita butuh cohort untuk active days)
+# Ambil property master termasuk COHORT_DATE (unchanged)
 active_props_all = df_prop_raw[['PROPERTY_CODE','BRAND_TYPE','CITY','INVENTORY','COHORT_DATE']].copy()
 active_props_all['COHORT_DATE'] = pd.to_datetime(active_props_all['COHORT_DATE'], errors='coerce')
 
 # Gabungkan dengan sold
 prop_final = pd.merge(active_props_all, prop_agg, on='PROPERTY_CODE', how='left').fillna({'SOLD':0})
 
-# Hitung active_days per property:
-# active_start = max(COHORT_DATE, start_date)
-# active_end = min(end_date, today) -> kita gunakan end_date karena filter pengguna
+# Hitung ACTIVE_DAYS per property berdasarkan COHORT_DATE
 start_dt = pd.to_datetime(start_date)
 end_dt = pd.to_datetime(end_date)
 
-# If COHORT_DATE is NaT -> treat as start_dt (assume active since filter start)
+# Jika COHORT_DATE kosong, anggap properti aktif sejak start_date
 prop_final['COHORT_DATE'] = prop_final['COHORT_DATE'].fillna(start_dt)
 
 # active_start = max(cohort_date, start_dt)
 prop_final['ACTIVE_START'] = prop_final['COHORT_DATE'].apply(lambda d: d if d > start_dt else start_dt)
 
-# active_end = end_dt (we assume property active up to filter end date)
+# active_end = end_dt (sama untuk semua properti)
 prop_final['ACTIVE_END'] = end_dt
 
 # active_days = (ACTIVE_END - ACTIVE_START).days + 1, minimum 0
@@ -434,7 +411,7 @@ prop_final['ACTIVE_DAYS'] = (prop_final['ACTIVE_END'] - prop_final['ACTIVE_START
 prop_final.loc[prop_final['ACTIVE_DAYS'] < 0, 'ACTIVE_DAYS'] = 0
 prop_final['ACTIVE_DAYS'] = prop_final['ACTIVE_DAYS'].fillna(0).astype(int)
 
-# AVAILABLE now uses per-property active days (safer than global days_count)
+# Hitung AVAILABLE = INVENTORY * ACTIVE_DAYS
 prop_final['INVENTORY'] = pd.to_numeric(prop_final['INVENTORY'], errors='coerce').fillna(0).astype(float)
 prop_final['AVAILABLE'] = prop_final['INVENTORY'] * prop_final['ACTIVE_DAYS']
 
@@ -443,7 +420,7 @@ prop_final['OCC'] = 0.0
 mask = prop_final['AVAILABLE'] > 0
 prop_final.loc[mask, 'OCC'] = (prop_final.loc[mask, 'SOLD'] / prop_final.loc[mask, 'AVAILABLE']) * 100
 
-# Keep previous grade logic (thresholds are the same)
+# Tentukan GRADE berdasarkan OCC
 def get_grade_logic(x):
     if x > 80: return 'A'
     elif x >= 70: return 'B'
@@ -453,17 +430,13 @@ def get_grade_logic(x):
 
 prop_final['GRADE'] = prop_final['OCC'].apply(get_grade_logic)
 
-# Map grade back to main dataset for downstream filters/charts
+# Map GRADE kembali ke df_main berdasarkan PROPERTY_CODE
 grade_mapping = dict(zip(prop_final['PROPERTY_CODE'], prop_final['GRADE']))
-
-# PERBAIKAN ERROR KeyError: 'CURRENT_GRADE'
-# Baris yang benar:
 df_main['CURRENT_GRADE'] = df_main['PROPERTY_CODE'].map(grade_mapping) 
-# Baris yang menyebabkan error (DIHAPUS): df_main['CURRENT_GRADE'] = df_main['CURRENT_GRADE'].map(grade_mapping) 
 
 df_main['CURRENT_GRADE'] = df_main['CURRENT_GRADE'].fillna('Unknown') 
 
-# --- E. Terapkan Semua Filter ke filtered_df (unchanged) ---
+# --- Terapkan Semua Filter ke filtered_df (unchanged) ---
 filtered_df = df_main[
     (df_main['BRAND_TYPE'].isin(selected_brands)) &
     (df_main['CITY'].isin(selected_cities)) &
@@ -476,7 +449,7 @@ filtered_df = df_main[
 if (prop_final['INVENTORY'] <= 0).any():
     st.warning("Beberapa properti memiliki INVENTORY <= 0. Hasil okupansi/proporsi bisa tidak valid untuk property tersebut.")
 
-# --- 4. KPI UTAMA (Header) (unchanged) ---
+# --- KPI UTAMA (Header) (unchanged) ---
 st.title("🏨 Dashboard Analisis Bisnis RedDoorz")
 st.markdown(f"Periode Analisis: **{start_date}** s/d **{end_date}**")
 
@@ -575,7 +548,7 @@ real_nights = f"{total_nights:,}"
 real_adr = f"${avg_adr:,.2f}"
 real_retention = f"{retention_rate:.2f}%"
 
-# Logika format singkat (M / K) untuk tampilan utama (TETAP SAMA)
+# Logika format singkat (M / K) untuk tampilan utama
 if total_revenue >= 1_000_000:
     formatted_revenue = f"${total_revenue/1_000_000:.2f} M"
 elif total_revenue >= 1_000:
@@ -588,13 +561,13 @@ with col1:
     st.metric(
         "Total Revenue", 
         formatted_revenue, 
-        # Di sini kita masukkan nilai asli (real_revenue) ke dalam tooltip
+        # Tooltip dengan nilai lengkap
         help=f"💰 Nilai Lengkap: {real_revenue}\n\nTotal pendapatan dalam periode terpilih."
     )
 with col2:
     st.metric(
         "Total Transaksi", 
-        f"{total_bookings:,}", # Tampilan utama (mungkin kepotong CSS)
+        f"{total_bookings:,}", # Tampilan utama
         help=f"🧾 Nilai Lengkap: {real_bookings}\n\nJumlah Booking ID Unik yang tercatat."
     )
 with col3:
@@ -618,7 +591,7 @@ with col5:
 
 st.divider()
 
-# --- 5. TABS ANALISIS ---
+# --- TABS ANALISIS ---
 # Mengubah baris tabs untuk menambahkan Tab 4 di posisi yang diinginkan
 tab1, tab2, tab3, tab4 = st.tabs(["📊 1. Aset & Kualitas", "🗺️ 2. Wilayah & Revenue", "👥 3. Pelanggan & Loyalitas", "⭐ 4. Rangkuman Aksi Strategis"])
 
@@ -626,14 +599,12 @@ tab1, tab2, tab3, tab4 = st.tabs(["📊 1. Aset & Kualitas", "🗺️ 2. Wilayah
 with tab1:
     st.subheader("Q1: Komposisi Performa Okupansi Properti (Grade A-E)")
     
-    # --- PERBAIKAN DI SINI ---
-    # Tambahkan filter: (prop_final['GRADE'].isin(selected_grades))
+    # --- FIXED: Apply grade filter correctly ---
     pf_filtered = prop_final[
         (prop_final['BRAND_TYPE'].isin(selected_brands)) &
         (prop_final['CITY'].isin(selected_cities)) &
-        (prop_final['GRADE'].isin(selected_grades))  # <--- INI YANG KURANG
+        (prop_final['GRADE'].isin(selected_grades))
     ].copy()
-    # -------------------------
 
     grade_dist = pf_filtered['GRADE'].value_counts().reset_index()
     grade_dist.columns = ['GRADE','COUNT']
@@ -644,22 +615,20 @@ with tab1:
 
     st.markdown("<div class='chart-hover'>", unsafe_allow_html=True)
 
-    # --- NEW: compute percent and smarter pull values for small slices ---
+    # Calculate percentages for pull logic
     total = grade_dist['COUNT'].sum() if grade_dist['COUNT'].sum() > 0 else 1
     grade_dist['PCT'] = grade_dist['COUNT'] / total
 
     pulls = []
     for pct in grade_dist['PCT']:
-        # increase pull for very small slices so they separate and become visible
+        # Filter logic for pull based on percentage size
         if pct < 0.06:
-            pulls.append(0.20)    # very small -> pull out strongly
+            pulls.append(0.20)
         elif pct < 0.12:
-            pulls.append(0.10)    # small -> moderate pull
+            pulls.append(0.10)
         else:
-            pulls.append(0.0)     # large slices no pull
+            pulls.append(0.0)
 
-    # Slightly reduce hole to give more ring thickness (labels outside clearer)
-    # Slightly reduce hole to give more ring thickness (labels outside clearer)
     fig_q1 = px.pie(
         grade_dist, names='GRADE', values='COUNT',
         color='GRADE', color_discrete_map=reddoorz_grade_map,
@@ -698,12 +667,11 @@ with tab1:
     st.markdown("**Brand breakdown (proporsi Grade E)**")
     st.dataframe(brand_summary.style.format({'E_PROP':'{:.1%}','TOTAL_PROPERTY':'{:.0f}','E_COUNT':'{:.0f}'}))
 
-    # >>>>>> INSIGHT Q1 <<<<<<
+    # Insight Q1
     st.info("""
     **Temuan Kritis** 🚨: $\mathbf{95.4\%}$ aset berada di **Grade E** (<20% Okupansi), krisis merata di semua brand. Properti unggul (A/B) hanya 0.8%. **RedPartner** ($\mathbf{95.8\%}$) memiliki proporsi E tertinggi.
     **Rekomendasi Strategi**: 1) **Delisting** agresif pada Grade E terburuk (fokus RedPartner). 2) **Fokus perbaikan** intensif hanya pada Grade C/D ($\sim 4\%$) untuk peningkatan cepat. 3) **Kloning** praktik operasional dari 3 properti Grade A.
     """)
-    # >>>>>> END INSIGHT Q1 <<<<<<
 
     st.markdown("<br/>", unsafe_allow_html=True)
 
@@ -713,7 +681,7 @@ with tab1:
     df_cohort['YEAR'] = df_cohort['COHORT_DATE'].dt.year
     yearly_growth = df_cohort.groupby(['YEAR','BRAND_TYPE']).size().reset_index(name='NEW_PROPERTIES')
 
-    # Use brand color map (RedDoorz theme) for Q4 lines -- UPDATED to use color_map_brand
+    # Gunakan color_map_brand yang sudah ada
     q4_brand_color_map = {
         'RedDoorz': color_map_brand.get('RedDoorz', "#BD5354"),
         'Koolkost': color_map_brand.get('Koolkost', '#FF7F50'),
@@ -734,12 +702,11 @@ with tab1:
     st.plotly_chart(fig_q4, use_container_width=True)
     st.markdown("</div>", unsafe_allow_html=True)
     
-    # >>>>>> INSIGHT Q4 <<<<<<
+    # Insight Q4
     st.info("""
     **Temuan Kritis** 🚨: **RedDoorz** ($46$ unit di 2022) dan **KoolKost** ($43$ unit di 2023) adalah *driver* pertumbuhan kuantitas yang agresif. Temuan ini **bertolak belakang dengan Q1**, menunjukkan akuisisi memprioritaskan **volume di atas kualitas aset**.
     **Rekomendasi Strategi**: 1) **Moratorium Akuisisi RedPartner**: Alihkan modal dari akuisisi RedPartner ke **perbaikan aset Grade C/D** yang ada untuk peningkatan kinerja yang pasti. 2) **Ubah Metrik BD (Business Development)**: Ukur tim akuisisi TIDAK dari *jumlah* aset baru, tetapi dari **persentase properti baru yang mencapai Grade C dalam 6 bulan**.
     """)
-    # >>>>>> END INSIGHT Q4 <<<<<<
 
 # TAB 2: Wilayah & Revenue (Q3)
 with tab2:
@@ -768,8 +735,7 @@ with tab2:
     df_city_sorted = df_city.sort_values('TOTAL_REVENUE', ascending=False)
     df_city_sorted['K_format'] = (df_city_sorted['TOTAL_REVENUE'] / 1000).round().astype(int).astype(str) + "k"
 
-    # Build mapping using fixed city color map for requested cities.
-    # If a city not in fixed map appears, fallback to reddoorz_palette sequence.
+    # Gunakan fixed color map untuk beberapa kota utama di Q3
     cities_present = df_city_sorted['CITY'].unique().tolist()
     city_color_map_dynamic = {}
     palette_idx = 0
@@ -795,13 +761,12 @@ with tab2:
     st.markdown("**Tabel ringkasan per-kota (Total Revenue, ADR, Okupansi, dan RevPAR)**")
     st.dataframe(df_city_sorted[['CITY','TOTAL_REVENUE','ADR','OCCUPANCY','REVPAR']].sort_values('TOTAL_REVENUE', ascending=False).style.format({'TOTAL_REVENUE':'{:.0f}','ADR':'{:.2f}','OCCUPANCY':'{:.2f}','REVPAR':'{:.2f}'}))
 
-    # >>>>>> INSIGHT Q3 <<<<<<
+    # Insight Q3
     # Teks telah diperbaiki untuk menghilangkan simbol LaTeX yang menyebabkan error rendering:
     st.info("""
     **Temuan Kritis** 🗺️: **Yogyakarta** adalah mesin revenue utama (**\$427K**) yang didorong oleh **Okupansi tertinggi** (1.61%). **ADR Seragam** (sekitar **\$5.00**) di semua kota menunjukkan pendapatan TIDAK didorong harga. Seluruh pasar menderita krisis volume yang parah (RevPAR sangat rendah).
     **Rekomendasi Strategi**: 1) **Monetisasi Yogyakarta/Jakarta**: Segera uji ADR naik **\$0.50** di properti Grade C/D di Yogyakarta dan Jakarta, karena permintaan volume terbukti ada. 2) **Fokus Volume**: Alokasikan *marketing* agresif untuk meningkatkan Okupansi di **Bandung, Malang, dan Surabaya** (pasar yang tertinggal).
     """)
-    # >>>>>> END INSIGHT Q3 <<<<<<
 
 # TAB 3: Pelanggan (Q2 & Q5)
 with tab3:
@@ -810,7 +775,7 @@ with tab3:
     brand_perf = filtered_df.groupby('BRAND_TYPE').agg(REV=('REVENUE_DOLLAR','sum'), RN=('ROOM_NIGHTS','sum')).reset_index()
     brand_perf['ADR'] = brand_perf.apply(lambda r: (r['REV']/r['RN']) if r['RN'] and r['RN']>0 else 0, axis=1)
 
-    # Use brand color map (RedDoorz colors) for Q2 bars -- UPDATED to use color_map_brand
+    # Gunakan color_map_brand yang sudah ada
     brands_present = brand_perf['BRAND_TYPE'].tolist()
     final_brand_map = {}
     for i,b in enumerate(brands_present):
@@ -827,14 +792,13 @@ with tab3:
     fig_q2.update_layout(yaxis_range=[0, max(brand_perf['ADR'].max()*1.15, 6)], uniformtext_minsize=10, uniformtext_mode='hide', showlegend=True, legend_title_text='Brand', margin=dict(t=30,b=20,l=40,r=20))
     fig_q2.update_yaxes(tickformat='.2f')
     st.plotly_chart(fig_q2, use_container_width=True)
-    
-    # >>>>>> INSIGHT Q2 <<<<<<
+
+    # Insight Q2
     # Teks telah diperbaiki untuk menghilangkan simbol LaTeX yang menyebabkan error rendering:
     st.info("""
     **Temuan Kritis** ⚠️: ADR sangat seragam (sekitar **\$5.00**) di semua brand (**RedDoorz: \$5.00, KoolKost: \$4.98, RedPartner: \$5.00**). Keseragaman ini menunjukkan **kegagalan diferensiasi nilai produk**. **KoolKost** gagal memberikan insentif harga (*ADR long-stay* seharusnya jauh lebih rendah).
     **Rekomendasi Strategi**: 1) Terapkan **diskon volume wajib** (**15% - 20%** lebih rendah) pada KoolKost untuk durasi inap panjang. 2) **Uji kenaikan harga agresif** di properti **Grade A** (Okupansi > 80%) menuju ADR **\$6.00** untuk membuktikan *pricing power* aset unggul.
     """)
-    # >>>>>> END INSIGHT Q2 <<<<<<
 
     st.markdown("<br/>", unsafe_allow_html=True)
 
@@ -877,34 +841,15 @@ with tab3:
         st.markdown("**Tabel proporsi Repeat User per Grade (A vs E)**")
         st.dataframe(loyalty_final.style.format({'REPEAT_RATIO':'{:.1%}'}))
 
-        # Attempt chi-square test only if scipy is present.
-        # If scipy is not installed, fail silently (no message shown).
-        # try:
-        #     from scipy.stats import chi2_contingency
-        #     ct = pd.crosstab(subset_loyalty['CURRENT_GRADE'], subset_loyalty['USER_TYPE']=='Repeat User')
-        #     if ct.shape == (2,2):
-        #         chi2, p, dof, expected = chi2_contingency(ct)
-        #         st.write("Chi-square p-value:", f"{p:.4f}")
-        #         if p < 0.05:
-        #             st.success("Perbedaan proporsi Repeat User antara Grade A dan E signifikan (p < 0.05).")
-        #         else:
-        #             st.info("Tidak ada bukti signifikan perbedaan proporsi Repeat User antara Grade A dan E.")
-        #     else:
-        #         st.info("Data tidak cocok untuk uji Chi-square (kontingensi bukan 2x2).")
-        # except Exception:
-        #     # scipy not available or test failed -> skip silently (no message)
-        #     pass
-
-        # >>>>>> INSIGHT Q5 <<<<<<
+        # Insight Q5
         st.info("""
         **Temuan Kritis** 👥: Proporsi **Repeat User** di Grade A (49.2%) hanya sedikit lebih tinggi (2%) dari Grade E (47.2%). Perbedaan ini **terlalu kecil** untuk memvalidasi ROI kualitas aset secara kuat.
         **Rekomendasi Strategi**: 1) **Audit Kualitas Pengalaman (QoE)** properti Grade A (Okupansi tinggi) untuk mengidentifikasi dan mereplikasi *unique selling points* yang benar-benar menciptakan loyalitas. 2) **Re-evaluasi metrik Grade** untuk memasukkan *Rating* atau *NPS* agar Grade A benar-benar mencerminkan kualitas superior.
         """)
-        # >>>>>> END INSIGHT Q5 <<<<<<
     else:
         st.warning("Data tidak cukup untuk membandingkan Grade A dan Grade E pada filter yang dipilih.")
 
-# --- 6. TAMBAH TAB 4 (RANGKUMAN EKSEKUTIF) ---
+# --- TAMBAH TAB 4 (RANGKUMAN EKSEKUTIF) ---
 with tab4:
     st.subheader("⭐ Rangkuman Aksi Strategis Portofolio")
     st.markdown("""
@@ -968,11 +913,11 @@ with tab4:
     """
     
     for item in data_summary:
-        # 1. Bersihkan LaTeX (Kode lama Anda)
+        # 1. BERSIHKAN TEKS DARI SYNTAX LATEX YANG TIDAK PERLU
         raw_krit = item['Temuan Kritis'].replace(r'\mathbf{', '').replace('}', '').replace(r'\sim', '~').replace(r'\mathbf', '').replace(r'\$', '$')
         raw_aksi = item['Aksi Rekomendasi'].replace(r'\mathbf{', '').replace('}', '').replace(r'\$', '$')
 
-        # 2. KONVERSI MARKDOWN KE HTML (Baris Baru)
+        # 2. KONVERSI MARKDOWN SEDERHANA KE HTML
         
         # Langkah A: Ubah **teks** menjadi <b>teks</b> (Bold)
         krit_html = re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', raw_krit)
@@ -995,7 +940,7 @@ with tab4:
     st.markdown(html_table, unsafe_allow_html=True)
 
 
-# --- 6. FOOTER (unchanged) ---
+# --- FOOTER (unchanged) ---
 footer_css = """
 <style>
 .footer-container {
