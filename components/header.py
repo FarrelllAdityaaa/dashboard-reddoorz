@@ -5,7 +5,7 @@ from config.styles import style_metric_cards
 
 def render_title(start_date, end_date):
     """Render title dengan periode analisis"""
-    st.title("🏨 Dashboard Analisis Bisnis RedDoorz")
+    st.title("🏨 RedDoorz Property Portfolio Performance & Strategic Evaluation Dashboard")
     st.markdown(f"Periode Analisis: **{start_date}** s/d **{end_date}**")
 
 def render_business_context():
