@@ -1,4 +1,4 @@
-# 🏨 RedDoorz Performance Dashboard
+# 🏨 RedDoorz Property Portfolio Performance & Strategic Evaluation Dashboard
 
 <div align="center">
 
@@ -26,10 +26,10 @@ RedDoorz menghadapi tantangan dalam mengelola portofolio properti yang terdiri d
 - **RedPartner** (Partnership) - Mitra lokal
 
 Dashboard ini membantu stakeholder untuk:
-- ✅ **Mengidentifikasi aset unggul** untuk direplikasi strateginya
-- ⚠️ **Mendeteksi aset bermasalah** untuk delisting atau perbaikan
-- 💰 **Mengoptimalkan revenue** melalui pricing dan occupancy strategy
-- 🎯 **Meningkatkan customer retention** berbasis analisis loyalitas
+- **Mengidentifikasi aset unggul** untuk direplikasi strateginya
+- **Mendeteksi aset bermasalah** untuk delisting atau perbaikan
+- **Mengoptimalkan revenue** melalui pricing dan occupancy strategy
+- **Meningkatkan customer retention** berbasis analisis loyalitas
 
 ---
 
@@ -61,9 +61,9 @@ Grade E: Okupansi < 20%  (Critical)
 ```
 
 **Finding Kritis:**
-- 🚨 **95.4%** properti berada di **Grade E** (krisis okupansi masif)
-- ✅ Hanya **0.8%** properti mencapai Grade A/B
-- ⚠️ **RedPartner** memiliki proporsi Grade E tertinggi (95.8%)
+- **95.4%** properti berada di **Grade E** (krisis okupansi masif)
+- Hanya **0.8%** properti mencapai Grade A/B
+- **RedPartner** memiliki proporsi Grade E tertinggi (95.8%)
 
 **Business Impact:**
 > Mayoritas aset tidak menghasilkan revenue optimal. Diperlukan konsolidasi portofolio untuk fokus pada aset potensial.
@@ -78,9 +78,9 @@ Grade E: Okupansi < 20%  (Critical)
 - **RedPartner ADR**: $5.00
 
 **Finding Kritis:**
-- ⚠️ **ADR seragam** di semua brand (~$5.00)
-- 🚨 **Kegagalan diferensiasi nilai produk**
-- ⚠️ KoolKost tidak memberikan **diskon long-stay** yang seharusnya
+- **ADR seragam** di semua brand (~$5.00)
+- **Kegagalan diferensiasi nilai produk**
+- KoolKost tidak memberikan **diskon long-stay** yang seharusnya
 
 **Business Impact:**
 > Tidak ada pricing power. Brand gagal menciptakan unique value proposition yang justify perbedaan harga.
@@ -95,9 +95,9 @@ Grade E: Okupansi < 20%  (Critical)
 3. 🥉 **Bandung** - $119K (Okupansi 0.41%)
 
 **Finding Kritis:**
-- 🎯 **Yogyakarta** adalah revenue engine utama
-- 💰 Revenue didorong oleh **volume (okupansi)**, bukan harga
-- 📉 ADR seragam $5.00 di semua kota (no premium pricing)
+-  **Yogyakarta** adalah revenue engine utama
+-  Revenue didorong oleh **volume (okupansi)**, bukan harga
+-  ADR seragam $5.00 di semua kota (no premium pricing)
 
 **Business Impact:**
 > Opportunity untuk premium pricing di kota high-demand (Yogyakarta, Jakarta). Kota lain butuh marketing boost untuk volume.
@@ -112,9 +112,9 @@ Grade E: Okupansi < 20%  (Critical)
 - **Trend**: Fokus pada **kuantitas akuisisi**
 
 **Finding Kritis:**
-- 🚨 **Ekspansi volume tinggi** bertolak belakang dengan **kualitas rendah** (Q1)
-- ⚠️ Akuisisi RedPartner tidak menghasilkan aset berkualitas
-- 📉 Tidak ada korelasi antara jumlah akuisisi dengan peningkatan Grade
+-  **Ekspansi volume tinggi** bertolak belakang dengan **kualitas rendah** (Q1)
+-  Akuisisi RedPartner tidak menghasilkan aset berkualitas
+-  Tidak ada korelasi antara jumlah akuisisi dengan peningkatan Grade
 
 **Business Impact:**
 > Strategi ekspansi perlu pivot dari "volume" ke "quality". Moratorium akuisisi brand underperforming diperlukan.
@@ -129,9 +129,9 @@ Grade E: Okupansi < 20%  (Critical)
 - **Selisih**: Hanya **2%**
 
 **Finding Kritis:**
-- 👥 **Korelasi loyalitas sangat lemah**
-- ⚠️ Okupansi tinggi ≠ Pengalaman superior
-- 🚨 Grade A tidak membuktikan ROI kualitas aset
+-  **Korelasi loyalitas sangat lemah**
+-  Okupansi tinggi ≠ Pengalaman superior
+-  Grade A tidak membuktikan ROI kualitas aset
 
 **Business Impact:**
 > Metrik Grade perlu re-evaluasi. Ocupancy saja tidak cukup untuk mengukur kualitas pengalaman pelanggan (QoE).
@@ -200,8 +200,8 @@ Grade E: Okupansi < 20%  (Critical)
 ### 📊 **Prioritas 3: Quality Metrics Redefinition**
 
 **Re-evaluasi Grading System:**
-- ❌ **Current**: Hanya okupansi
-- ✅ **New**: Okupansi + Rating + NPS + Repeat Rate
+-  **Current**: Hanya okupansi
+-  **New**: Okupansi + Rating + NPS + Repeat Rate
 
 **Quality Experience (QoE) Audit:**
 - Deep-dive audit properti Grade A
@@ -250,7 +250,7 @@ Grade E: Okupansi < 20%  (Critical)
 
 ---
 
-## 🎓 Metodologi
+## Metodologi
 
 ### **Data Sources**
 - Bookings Transaction Data (2019-2024)
@@ -290,7 +290,7 @@ Grade E: Okupansi < 20%  (Critical)
   </tr>
 </table>
 
-**Proyek Akhir Visualisasi Data - 2025**
+**Proyek Data Analyst Hotel Reddoorz - 2025**
 
 </div>
 
@@ -298,17 +298,16 @@ Grade E: Okupansi < 20%  (Critical)
 
 ## 📞 Kontak
 
-- 📧 Email: safari.data@example.com
-- 🐛 Issues: [GitHub Issues](https://github.com/username/dashboard-reddoorz/issues)
-- 💬 Feedback: [GitHub Discussions](https://github.com/username/dashboard-reddoorz/discussions)
+-  Email: nabilaputriasysyifa99@gmail.com
+-  Linkedln: [Linkedln Account Nabila](www.linkedin.com/in/nabila-putri-asy-syifa)
+-  Linkedln: [Linkedln Account Farrel](https://www.linkedin.com/in/farrel-paksi-aditya/)
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 Terima kasih kepada:
 - **RedDoorz** untuk business case dan dataset
-- **Dosen Pembimbing** untuk guidance dan feedback
 - **Streamlit Community** untuk tools dan resources
 
 ---
@@ -318,8 +317,6 @@ Terima kasih kepada:
 **Dashboard ini dibuat oleh Tim Safari Data 🐱**
 
 *Transforming Data into Actionable Business Insights*
-
-⭐ Star repository ini jika membantu analisis bisnis Anda!
 
 ---
 
