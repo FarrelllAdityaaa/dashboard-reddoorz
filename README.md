@@ -1,4 +1,4 @@
-# 🏨 RedDoorz Property Portfolio Performance & Strategic Evaluation Dashboard
+# 🏨 RedDoorz Portfolio Performance Dashboard
 
 <div align="center">
 
