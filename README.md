@@ -6,7 +6,7 @@
 
 **Dashboard Analisis Bisnis untuk Optimasi Portofolio Properti RedDoorz**
 
-[![Live Demo](https://img.shields.io/badge/Demo-Live-success?style=for-the-badge)](https://your-dashboard-url.streamlit.app)
+[![Live Demo](https://img.shields.io/badge/Demo-Live-success?style=for-the-badge)](https://dashboard-reddoorz-analysis.streamlit.app/)
 [![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=white)](https://streamlit.io/)
 
