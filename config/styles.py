@@ -305,7 +305,6 @@ footer_html = """
   <div class="team">
     <span class="team-badge" style="background:#EB3638;">👩🏻‍💻 Nabila Putri Asy Syifa</span>
     <span class="team-badge" style="background:#FF7F50;">🧑🏻‍💻 Farrel Paksi Aditya</span>
-    <span class="team-badge" style="background:#8B0000;">👩🏻‍💻 Nur Salamah Azzahrah</span>
   </div>
 
   <div class="copyright">© 2025 Proyek Akhir Visualisasi Data | RedDoorz Analysis</div>
