@@ -283,7 +283,7 @@ Grade E: Okupansi < 20%  (Critical)
       <sub>🧑🏻‍💻 Data Analyst & Business Analyst</sub>
     </td>
     <td align="center">
-      <img src="https://github.com/NabilaaaPutriii.png" width="100px;" alt="Nabila Putri Asy Syifa"/><br />
+      <img src="https://github.com/NabilaPutriAsySyifa.png" width="100px;" alt="Nabila Putri Asy Syifa"/><br />
       <sub><b>Nabila Putri Asy Syifa</b></sub><br />
       <sub>🧑🏻‍💻 Data Analyst & Business Analyst</sub>
     </td>
