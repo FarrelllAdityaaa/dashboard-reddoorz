@@ -44,7 +44,7 @@ def render_tab(filtered_df):
 
     # Insight Q2
     st.info("""
-    **Temuan Kritis** ⚠️: ADR sangat seragam (sekitar **\$5.00**) di semua brand (**RedDoorz: \$5.00, KoolKost: \$4.98, RedPartner: \$5.00**). Keseragaman ini menunjukkan **kegagalan diferensiasi nilai produk**. **KoolKost** gagal memberikan insentif harga (*ADR long-stay* seharusnya jauh lebih rendah).
+    **Temuan Kritis**: ADR sangat seragam (sekitar **\$5.00**) di semua brand (**RedDoorz: \$5.00, KoolKost: \$4.98, RedPartner: \$5.00**). Keseragaman ini menunjukkan **kegagalan diferensiasi nilai produk**. **KoolKost** gagal memberikan insentif harga (*ADR long-stay* seharusnya jauh lebih rendah).
     **Rekomendasi Strategi**: 1) Terapkan **diskon volume wajib** (**15% - 20%** lebih rendah) pada KoolKost untuk durasi inap panjang. 2) **Uji kenaikan harga agresif** di properti **Grade A** (Okupansi > 80%) menuju ADR **\$6.00** untuk membuktikan *pricing power* aset unggul.
     """)
 
@@ -92,7 +92,7 @@ def render_tab(filtered_df):
 
         # Insight Q5
         st.info("""
-        **Temuan Kritis** 👥: Proporsi **Repeat User** di Grade A (49.2%) hanya sedikit lebih tinggi (2%) dari Grade E (47.2%). Perbedaan ini **terlalu kecil** untuk memvalidasi ROI kualitas aset secara kuat.
+        **Temuan Kritis**: Proporsi **Repeat User** di Grade A (49.2%) hanya sedikit lebih tinggi (2%) dari Grade E (47.2%). Perbedaan ini **terlalu kecil** untuk memvalidasi ROI kualitas aset secara kuat.
         **Rekomendasi Strategi**: 1) **Audit Kualitas Pengalaman (QoE)** properti Grade A (Okupansi tinggi) untuk mengidentifikasi dan mereplikasi *unique selling points* yang benar-benar menciptakan loyalitas. 2) **Re-evaluasi metrik Grade** untuk memasukkan *Rating* atau *NPS* agar Grade A benar-benar mencerminkan kualitas superior.
         """)
     else:

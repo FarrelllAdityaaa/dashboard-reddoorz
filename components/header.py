@@ -17,12 +17,12 @@ def render_business_context():
         with c1:
             st.markdown("""
             <div class="info-box" style="height: 100%;">
-                <div class="info-title">🎯 TUJUAN BISNIS UTAMA</div>
+                <div class="info-title">TUJUAN BISNIS UTAMA</div>
                 <div class="info-text">
                 Menganalisis performa operasional dan profitabilitas portofolio RedDoorz untuk:
                 <ul style="margin-top: 5px;">
-                    <li>✅<b>Identifikasi Aset Unggul (Replicate):</b> Meniru strategi properti Grade A.</li>
-                    <li>⚠️<b>Identifikasi Aset Lemah (Fix):</b> Memperbaiki atau delisting properti Grade E.</li>
+                    <li><b>Identifikasi Aset Unggul (Replicate):</b> Meniru strategi properti Grade A.</li>
+                    <li><b>Identifikasi Aset Lemah (Fix):</b> Memperbaiki atau delisting properti Grade E.</li>
                 </ul>
                 </div>
             </div>
@@ -30,7 +30,7 @@ def render_business_context():
         with c2:
             st.markdown("""
             <div class="info-box" style="height: 100%;">
-                <div class="info-title">🏨 PROFIL BRAND</div>
+                <div class="info-title">PROFIL BRAND</div>
                 <div class="info-text">
                 <b>1. RedDoorz (Core):</b><br>Harian, Budget, Wisatawan/Bisnis Singkat. Fasilitas standar.<br><br>
                 <b>2. KoolKost (Co-Living):</b><br>Jangka Panjang (>7 hari), Kost, Mahasiswa/Pekerja. Low margin, High stability.<br><br>
@@ -40,7 +40,7 @@ def render_business_context():
             """, unsafe_allow_html=True)
 
         st.markdown("""
-        <div class="info-title" style="margin-top: 20px;">📊 PANDUAN VISUALISASI & PERTANYAAN BISNIS</div>
+        <div class="info-title" style="margin-top: 20px;">PANDUAN VISUALISASI & PERTANYAAN BISNIS</div>
         <table class="styled-table">
             <thead>
                 <tr>
@@ -55,7 +55,7 @@ def render_business_context():
                     <td><b>Q1</b></td>
                     <td>Komposisi Performa Okupansi Properti (Grade A-E)</td>
                     <td>Pie Chart</td>
-                    <td>Mendiagnosis proporsi aset yang "Sehat" (Grade A) vs "Sakit" (Grade E) dalam portofolio.</td>
+                    <td>Mendiagnosis proporsi aset yang "Baik" (Grade A) vs "Buruk" (Grade E) dalam portofolio.</td>
                 </tr>
                 <tr title="Perbandingan Harga (ADR) per Brand">
                     <td><b>Q2</b></td>

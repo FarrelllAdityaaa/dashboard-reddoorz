@@ -6,7 +6,7 @@ import re
 def render_tab():
     """Render Tab 4: Rangkuman Aksi Strategis"""
     
-    st.subheader("⭐ Rangkuman Aksi Strategis Portofolio")
+    st.subheader("Rangkuman Aksi Strategis Portofolio")
     
     st.markdown("""
     <style>
@@ -28,25 +28,25 @@ def render_tab():
     </style>
     """, unsafe_allow_html=True)
 
-    st.markdown("### 🎯 Rekomendasi Prioritas Berdasarkan Tujuan Bisnis Utama (Q1 - Q5)")
+    st.markdown("### Rekomendasi Prioritas Berdasarkan Tujuan Bisnis Utama (Q1 - Q5)")
     
     # Data Konsolidasi
     data_summary = [
         {
             'Aspek': 'Kualitas Aset & Konsolidasi',
-            'Temuan Kritis': '🚨 **95.4%** aset adalah **Grade E** (krisis volume). Ekspansi agresif RedPartner/KoolKost menambah volume aset berkinerja buruk.',
+            'Temuan Kritis': '**95.4%** aset adalah **Grade E** (krisis volume). Ekspansi agresif RedPartner/KoolKost menambah volume aset berkinerja buruk.',
             'Aksi Rekomendasi': 'Fokus **Delisting Agresif** properti E yang terburuk. Alihkan modal ke **Perbaikan Intensif aset Grade C/D** (aset potensial ~4%). Tim BD diukur berdasarkan **kualitas (Grade C/B)**, bukan volume akuisisi mentah.',
             'Konteks': 'Q1, Q4'
         },
         {
             'Aspek': 'Pricing & Revenue Management',
-            'Temuan Kritis': '⚠️ **ADR Seragam** (sekitar $5.00) di semua *brand* dan kota (**Q2**), menunjukkan **kegagalan diferensiasi nilai**. KoolKost tidak memberikan insentif harga *long-stay*.',
+            'Temuan Kritis': '**ADR Seragam** (sekitar $5.00) di semua *brand* dan kota (**Q2**), menunjukkan **kegagalan diferensiasi nilai**. KoolKost tidak memberikan insentif harga *long-stay*.',
             'Aksi Rekomendasi': 'Terapkan **diskon volume wajib (15%–20%)** untuk KoolKost. Segera uji kenaikan ADR ($+0.50) di properti Grade C/D di pasar terkuat (**Yogyakarta/Jakarta**) untuk membangun *pricing power* yang hilang.',
             'Konteks': 'Q2, Q3'
         },
         {
             'Aspek': 'Loyalitas & Pengalaman Pelanggan (QoE)',
-            'Temuan Kritis': '👥 Korelasi loyalitas sangat lemah: Grade A hanya 2% Repeat User lebih tinggi dari Grade E. Okupansi tinggi TIDAK secara otomatis berarti kualitas pengalaman superior.',
+            'Temuan Kritis': 'Korelasi loyalitas sangat lemah: Grade A hanya 2% Repeat User lebih tinggi dari Grade E. Okupansi tinggi TIDAK secara otomatis berarti kualitas pengalaman superior.',
             'Aksi Rekomendasi': 'Lakukan **Audit Kualitas Pengalaman (QoE)** pada properti Grade A. **Re-evaluasi metrik Grade** untuk memasukkan *Rating* atau *NPS* agar Grade A benar-benar mencerminkan kualitas superior yang memicu loyalitas.',
             'Konteks': 'Q5'
         }

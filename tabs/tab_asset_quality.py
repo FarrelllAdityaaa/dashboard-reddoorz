@@ -72,7 +72,7 @@ def render_tab(prop_final, df_property, selected_brands):
 
     # Insight Q1
     st.info("""
-    **Temuan Kritis** 🚨: $\mathbf{95.4\%}$ aset berada di **Grade E** (<20% Okupansi), krisis merata di semua brand. Properti unggul (A/B) hanya 0.8%. **RedPartner** ($\mathbf{95.8\%}$) memiliki proporsi E tertinggi.
+    **Temuan Kritis**: $\mathbf{95.4\%}$ aset berada di **Grade E** (<20% Okupansi), krisis merata di semua brand. Properti unggul (A/B) hanya 0.8%. **RedPartner** ($\mathbf{95.8\%}$) memiliki proporsi E tertinggi.
     **Rekomendasi Strategi**: 1) **Delisting** agresif pada Grade E terburuk (fokus RedPartner). 2) **Fokus perbaikan** intensif hanya pada Grade C/D ($\sim 4\%$) untuk peningkatan cepat. 3) **Kloning** praktik operasional dari 3 properti Grade A.
     """)
 
@@ -106,6 +106,6 @@ def render_tab(prop_final, df_property, selected_brands):
     
     # Insight Q4
     st.info("""
-    **Temuan Kritis** 🚨: **RedDoorz** ($46$ unit di 2022) dan **KoolKost** ($43$ unit di 2023) adalah *driver* pertumbuhan kuantitas yang agresif. Temuan ini **bertolak belakang dengan Q1**, menunjukkan akuisisi memprioritaskan **volume di atas kualitas aset**.
+    **Temuan Kritis**: **RedDoorz** ($46$ unit di 2022) dan **KoolKost** ($43$ unit di 2023) adalah *driver* pertumbuhan kuantitas yang agresif. Temuan ini **bertolak belakang dengan Q1**, menunjukkan akuisisi memprioritaskan **volume di atas kualitas aset**.
     **Rekomendasi Strategi**: 1) **Moratorium Akuisisi RedPartner**: Alihkan modal dari akuisisi RedPartner ke **perbaikan aset Grade C/D** yang ada untuk peningkatan kinerja yang pasti. 2) **Ubah Metrik BD (Business Development)**: Ukur tim akuisisi TIDAK dari *jumlah* aset baru, tetapi dari **persentase properti baru yang mencapai Grade C dalam 6 bulan**.
     """)

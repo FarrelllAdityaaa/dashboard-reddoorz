@@ -70,6 +70,6 @@ def render_tab(filtered_df, prop_final):
 
     # Insight Q3
     st.info("""
-    **Temuan Kritis** 🗺️: **Yogyakarta** adalah mesin revenue utama (**\$427K**) yang didorong oleh **Okupansi tertinggi** (1.61%). **ADR Seragam** (sekitar **\$5.00**) di semua kota menunjukkan pendapatan TIDAK didorong harga. Seluruh pasar menderita krisis volume yang parah (RevPAR sangat rendah).
+    **Temuan Kritis**: **Yogyakarta** adalah mesin revenue utama (**\$427K**) yang didorong oleh **Okupansi tertinggi** (1.61%). **ADR Seragam** (sekitar **\$5.00**) di semua kota menunjukkan pendapatan TIDAK didorong harga. Seluruh pasar menderita krisis volume yang parah (RevPAR sangat rendah).
     **Rekomendasi Strategi**: 1) **Monetisasi Yogyakarta/Jakarta**: Segera uji ADR naik **\$0.50** di properti Grade C/D di Yogyakarta dan Jakarta, karena permintaan volume terbukti ada. 2) **Fokus Volume**: Alokasikan *marketing* agresif untuk meningkatkan Okupansi di **Bandung, Malang, dan Surabaya** (pasar yang tertinggal).
     """)

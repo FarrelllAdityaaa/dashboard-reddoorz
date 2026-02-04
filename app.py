@@ -98,10 +98,10 @@ st.divider()
 
 # --- TABS ANALISIS ---
 tab1, tab2, tab3, tab4 = st.tabs([
-    "📊 1. Aset & Kualitas", 
-    "🗺️ 2. Wilayah & Revenue", 
-    "👥 3. Pelanggan & Loyalitas", 
-    "⭐ 4. Rangkuman Aksi Strategis"
+    "1. Aset & Kualitas", 
+    "2. Wilayah & Revenue", 
+    "3. Pelanggan & Loyalitas", 
+    "4. Rangkuman Aksi Strategis"
 ])
 
 with tab1:
