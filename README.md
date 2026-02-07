@@ -318,8 +318,6 @@ Terima kasih kepada:
 
 *Transforming Data into Actionable Business Insights*
 
----
-
 © 2025 Tim Safari Data | Proyek Akhir Visualisasi Data
 
 </div>
